@@ -9,5 +9,5 @@ class CategorySerializer(serializers.ModelSerializer):
             'id',
             'name',
             'thumbnail',
-            'description',# añadimos category en el serlializer
+            'description',
         ]

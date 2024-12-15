@@ -4,5 +4,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('categories', ListCategoriesView.as_view()),
+    path('', ListCategoriesView.as_view()), #eliminado "categories" para mantener las rutas más limpias y coherentes
+    path('create-new-category', CreateNewCategory.as_view())
 ]

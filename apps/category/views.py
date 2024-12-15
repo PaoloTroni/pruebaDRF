@@ -20,6 +20,7 @@ class ListCategoriesView(APIView):
                     item['id'] = category.id
                     item['name'] = category.name
                     item['thumbnail'] = category.thumbnail.url
+                    item['description'] = category.description
 
                     item['sub_categories'] = []
 
@@ -29,6 +30,7 @@ class ListCategoriesView(APIView):
                             sub_item['id'] = cat.id
                             sub_item['name'] = cat.name
                             sub_item['thumbnail'] = cat.thumbnail.url
+                            sub_item['description'] = category.description
 
                             item['sub_categories'].append(sub_item)
 
@@ -37,3 +39,7 @@ class ListCategoriesView(APIView):
             return Response({'categories': result}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'No categories found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+class CreateNewCategory(APIView):
+    def post(self, request, format=None):
+        print('hello world')
