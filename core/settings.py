@@ -10,26 +10,20 @@ ENVIRONMENT = env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 
-SITE_NAME = 'SoloPython'
+SITE_NAME = 'prueba DRF'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
+if DEBUG:
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEBUG_ON', default=['localhost', '127.0.0.1'])
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1"
-]
-
-if not DEBUG:
-    ALLOWED_HOSTS = [
-        "solopython.com",
-        ".solopython.com",
-        "www.solopython.com"
-    ]
+else:
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEBUG_OFF')
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -123,17 +117,9 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 if not DEBUG:
-    CORS_ORIGIN_WHITELIST = [
-        'https://solopython.com',
-        'https://admin.solopython.com',
-        'https://blog.solopython.com',
-    ]
+    CORS_ORIGIN_WHITELIST = []
 
-    CSRF_TRUSTED_ORIGINS = [
-        'hhttps://solopython.com',
-        'https://admin.solopython.com',
-        'https://blog.solopython.com',
-    ]
+    CSRF_TRUSTED_ORIGINS = []
 
 
 PASSWORD_HASHERS = [
@@ -166,7 +152,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
 
@@ -210,7 +196,7 @@ FILE_UPLOAD_PERMISSIONS = 0o640
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 if not DEBUG:
-    DEFAULT_FROM_EMAIL="Uridium <mail@uridium.network>"
+    DEFAULT_FROM_EMAIL=env('DEFAULT_FROM_EMAIL')
     EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = env('EMAIL_HOST')
     EMAIL_HOST_USER = env('EMAIL_HOST_USER')
