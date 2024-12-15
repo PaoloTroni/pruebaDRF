@@ -68,7 +68,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -105,18 +105,23 @@ DATABASES = {
     }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+if DEBUG:
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:8000',
-]
+    CORS_ORIGIN_WHITELIST = [
+        'http://localhost:3000',
+        'http://localhost:8000',
+    ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-    'http://localhost:8000',
-]
+    CSRF_TRUSTED_ORIGINS = [
+        'http://localhost:3000',
+        'http://localhost:8000',
+    ]
 
-if not DEBUG:
+    CSRF_COOKIE_SECURE = False
+    CSRF_USE_SESSIONS = False
+    CSRF_COOKIE_HTTPONLY = False 
+
+else:
     CORS_ORIGIN_WHITELIST = []
 
     CSRF_TRUSTED_ORIGINS = []

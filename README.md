@@ -12,9 +12,24 @@
 
 - Se ha modificado el endpoint (presente en /apps/category/views.py) que retorna todas las categorías registrada para que también retorne el campo "description" añadido en el modelo "category".
 - El archivo "/apps/category/urls.py" tenía la linea 7 configurada como "path('categories', ListCategoriesView.as_view()),"
-Inicialmente llegué a pensar que fuera un error, dado que estaba intentando acceder a las categorias con una ruta similar a la definida para los posts del blog ("/api/blog/"). Aunque después me di cuenta que no era un error, igualmente me pareció más limpio y coherente modificar ese archivo para que las rutas sean similares ("/api/blog/" devuelve los posts y "/api/category/" devuelve las categorias).
+  Inicialmente llegué a pensar que fuera un error, dado que estaba intentando acceder a las categorias con una ruta similar a la definida para los posts del blog ("/api/blog/"). Aunque después me di cuenta que no era un error, igualmente me pareció más limpio y coherente modificar ese archivo para que las rutas sean similares ("/api/blog/" devuelve los posts y "/api/category/" devuelve las categorias).
 
--
+- Elaborando la lógica para el endpoint para crear nuevas categorias me di cuenta que el endpoint que ya estaba desarrollado no usaba para nada el serializador y podía optimizarse mucho cambiándole la lógica en ese sentido.
+  Además, ahora será posible, a principio, cambiar como se desee los campos del modelo "category" sin que se haga necesario cambiar la lógica del endpoint, dado que, haciendo uso del serializador, los datos ya se mostrarán de forma dinámica.
+
+- Me di cuenta que hubo un problema al hacer esa modificación. No aparecían las sub categorias. Tuve que modificar el serializador y me costó un poco dar con la solución.
+
+- Error 403 en POST por CSRF
+
+- El campo "thumbnail" de "Category" es required. Para que acepte crear una categoria únicamente con los campos "name" y "description" tuve que poner "null=True" en "thumbail".
+
+- Realizado el endpoint que crea una nueva categoria con los campos "name" y "description" pero...
+
+- Hay problemas con el codigo del serializador de las category. Con lo cual, o bien tendré que sacrificar las sub_categories o bien retornar el código que estaba anteriormente en views, que hacía una doble iteración en lugar de usar el serializador.
+
+- Opto por no dejar el código original (el que hace doble iteración en las categorias) y dejar el mío que trabaja directamente en el serializador. Queda pendiente de solucionar el tema de las subcategorias.
+
+## instrucciones de configuración (que ya estaban)
 
 Psycopg2 para Mac y Linux:
 sudo apt install python3-dev libpq-dev

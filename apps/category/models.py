@@ -10,7 +10,7 @@ class Category(models.Model):
         'self', related_name='children', on_delete=models.CASCADE, blank=True, null=True)
     
     name = models.CharField(max_length=255, unique=True)
-    thumbnail =         models.ImageField(upload_to='media/categories/')
+    thumbnail = models.ImageField(upload_to='media/categories/', blank=True, null=True)
     #Ampliamos el modelo "category" añadiendo el campo "description"
     description = models.TextField(blank=True, null=True)
 

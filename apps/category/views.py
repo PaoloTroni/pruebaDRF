@@ -10,11 +10,19 @@ from rest_framework.pagination import PageNumberPagination
 class ListCategoriesView(APIView):
     def get(self, request, format=None):
         if Category.objects.all().exists():
-            categories = Category.objects.all()
+           # CÓDIGO NUEVO USANDO EL SERIALIZADOR
+           categories = Category.objects        
+           serializer = CategorySerializer(categories, many=True)
+           return Response({'categories': serializer.data}, status=status.HTTP_200_OK)
+        
+        #>>>> DEJE EL CODIGO ANTERIOR AQUÍ PARA COMPARACIÓN <<<<#
+           """        
+           
+           categories = Category.objects.all()
 
-            result = []
+           result = []
 
-            for category in categories:
+           for category in categories:
                 if not category.parent:
                     item = {}
                     item['id'] = category.id
@@ -36,10 +44,23 @@ class ListCategoriesView(APIView):
 
                     result.append(item)
                     
-            return Response({'categories': result}, status=status.HTTP_200_OK)
+           return Response({'categories': result}, status=status.HTTP_200_OK)"""
         else:
             return Response({'error': 'No categories found'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class CreateNewCategory(APIView):
     def post(self, request, format=None):
-        print('hello world')
+
+        data = {
+            'name': request.data.get('name'),
+            'description': request.data.get('description')
+        }
+        print("Request Data: ", request.data) 
+
+        serializer = CategorySerializer(data=data)
+
+        if serializer.is_valid():
+          
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
