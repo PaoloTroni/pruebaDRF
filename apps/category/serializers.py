@@ -15,7 +15,6 @@ class CategorySerializer(serializers.ModelSerializer):
            'sub_categories',  
         ]
     
-     
     def get_sub_categories(self, obj):
         if not obj.id:  # Verificamos si el objeto tiene un id
             return None

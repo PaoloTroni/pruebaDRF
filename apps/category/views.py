@@ -18,14 +18,7 @@ class ListCategoriesView(APIView):
 class ListCategoriesView(APIView):
     def get(self, request, format=None):
         if Category.objects.all().exists():
-           # CÓDIGO NUEVO USANDO EL SERIALIZADOR
-           #categories = Category.objects        
-           #serializer = CategorySerializer(categories, many=True)
-           #return Response({'categories': serializer.data}, status=status.HTTP_200_OK)
-        
-        
-                  
-           
+                   
            categories = Category.objects.all()
 
            result = []
