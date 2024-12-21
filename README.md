@@ -43,9 +43,9 @@
 
 ### 21/12/2024
 
-- Borrado algunos comentarios
+- Borrado algunos comentarios.
 - Borrado imports desnecesarios en /apps/category/views.py
-- Creado una colección de Postman para poder probar los endpoints de categories
+- Creado una colección de Postman para poder probar los endpoints de categories.
 
 ## instrucciones de configuración (que ya estaban)
 
