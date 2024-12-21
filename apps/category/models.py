@@ -11,7 +11,6 @@ class Category(models.Model):
     
     name = models.CharField(max_length=255, unique=True)
     thumbnail = models.ImageField(upload_to='media/categories/', blank=True, null=True)
-    #Ampliamos el modelo "category" añadiendo el campo "description"
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):

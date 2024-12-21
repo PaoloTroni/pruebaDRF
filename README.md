@@ -21,8 +21,6 @@
 
 - Me di cuenta que hubo un problema al hacer esa modificación. No aparecían las sub categorias. Tuve que modificar el serializador y me costó un poco dar con la solución.
 
-- Error 403 en POST por CSRF
-
 - El campo "thumbnail" de "Category" es required. Para que acepte crear una categoria únicamente con los campos "name" y "description" tuve que poner "null=True" en "thumbail".
 
 - Realizado el endpoint que crea una nueva categoria con los campos "name" y "description" pero...
@@ -34,13 +32,20 @@
 ### 19/12/2024
 
 - Resuelto los problemas con las sub_categories. Habían algunos detalles:
+
   - había que añadir "parent" en el serializador.
   - habia que cambiar la vista para filtrar los resultados con "parent: null" para no duplicar las subcategorias en las categorias.
   - Obviamente había que añadir "parent" en el JSON para añadir una nueva subcategoria.
 
-- Mejora del código: si la consulta (get) retornaba una lista vacía, retornaba un error 500. Sin embargo, que no haya datos no me parece un error (simplemente no hay datos) y menos del tipo 500 (sería más bien un 404). 
-Cambié ese comportamento del codigo para que retornara un estado 200 con una lista vacía y un mensage de que no se han encontrado categorias.
-Además, cambié el flujo del código, invertiendo el orden de las condiciones, lo que me permitió eliminar el "else" del if.
+- Mejora del código: si la consulta (get) retornaba una lista vacía, retornaba un error 500. Sin embargo, que no haya datos no me parece un error (simplemente no hay datos) y menos del tipo 500 (sería más bien un 404).
+  Cambié ese comportamento del codigo para que retornara un estado 200 con una lista vacía y un mensage de que no se han encontrado categorias.
+  Además, cambié el flujo del código, invertiendo el orden de las condiciones, lo que me permitió eliminar el "else" del if.
+
+### 21/12/2024
+
+- Borrado algunos comentarios
+- Borrado imports desnecesarios en /apps/category/views.py
+- Creado una colección de Postman para poder probar los endpoints de categories
 
 ## instrucciones de configuración (que ya estaban)
 
