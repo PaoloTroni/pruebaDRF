@@ -90,9 +90,9 @@ Se ha modificado el código del endpoint y consecuentemente, del serializador, p
 - Creada una colección de Postman para poder probar los endpoints de categories.
 - Pruebas finales y actualización de este mismo archivo (README.md).
 
-## instrucciones de configuración (que ya estaban)
+## Instrucciones de configuración (que ya estaban originalmente)
 
-Psycopg2 para Mac y Linux:
+Comandos para instalar Psycopg2 para Mac y Linux:
 sudo apt install python3-dev libpq-dev
 
-Cuando se instalan los requerimientos si usa python 3.10 da un error y hay que poner en requirements.txt quitar "backports.zoneinfo==0.2.1" y poner : " backports.zoneinfo==0.2.1;python_version<"3.9" " porque da un error con la version mas actual.
+Cuando se instalan los requerimientos si usa python 3.10 da un error y hay que poner en requirements.txt quitar "backports.zoneinfo==0.2.1" y poner : " backports.zoneinfo==0.2.1;python_version<"3.9" " porque da un error con la version mas actual. **EL ARCHIVO requirements.txt YA ESTÁ ACTUALIZADO CON ESA ACTUALIZACIÓN**
