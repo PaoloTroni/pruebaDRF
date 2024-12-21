@@ -1,4 +1,46 @@
-# Historial de modificaciones:
+# Resumen de alteraciones:
+
+### Alteraciones de Configuraciones:
+
+- Actualización del archivo "requirements.txt" para que se instale correctamente las dependencias necesarias.
+- Creación y configuración del archivo .env y .env_exemple
+- Modificación de algunas configuraciones del archivo settings.py (en la carpeta "core") en consecuencia de la creación del archivo .env
+
+### Alteraciones relacionadas con la actualización que se ha pedido:
+
+#### Añadiendo "description" en "category":
+
+- Modificación de los archivos "models.py", "serializers.py", "views.py" localizados en la ruta "/apps/category/" para ampliar el modelo "category" con un campo adicional llamado "description" y un endpoint para permitir la creación de nuevas categorías.
+- Modificación del archivo url.py en "/apps/category/" para añadir la ruta POST del nuevo endpoint.
+
+#### Refactorización de rutas:
+
+- Refactorización en las rutas de categorias para simplificar y eliminar redundancias. Se ha normalizado las rutas para listar recursos, tal como explicado a continuación:
+  - La ruta para listar categorías fue simplificada de /category/categories a /category/, alineándola con el diseño de la ruta para listar los posts del blog (/blog/).
+
+#### Optmización de código:
+
+- Refactorización del código del endpoint para listar las categorias.
+**Inconvenientes del código original**:
+  - Accede directamente al modelo en lugar de usar el serializador.
+  - Iteraciones anidadas.
+  - Condicionales para gestionar los caso en que el campo thumbnail estuviera vacío.
+  - Poco flexible y dificultad para escalar (no permite tener más de un nivel de subcategorías; dificultad adicional para añadir nuevos campos al modelo).
+  - Retorna un error en el caso no exsitan categorías creadas (que no exista categorías no es un error, debería devolver una lista vacía y eventualmente un mensaje, pero con código 200. Además, si "categories not found" se considerara un error, el código más adecuado sería el 404 y no el 500).
+
+![Print: Código sin optimizar](doc-imgs/endpoint-list-categories-old.png "Print: Código sin optmizar")
+
+Se ha modificado el código del endpoint y consecuentemente, del serializador, para:
+
+- Tener un código más limpio y que permitiera mayor escalabilidad y flexibilidad.
+- Hacer uso del seralizador.
+- Eliminar iteraciones anidadas y condicionales.
+- Retornar el código adecuado en lugar de un error 500 en el caso no hubieran categorías creadas (además, me pareció mejor invertir el flujo del código y eliminar el "else").
+
+![Print: Endpoint optimizado](doc-imgs/optimized-endpoint-list-categories.png "Print: Endpoint optimizado")
+![Print: Cambios en el Serializador](doc-imgs/serializer-changed.png "Print: Cambios en el Serializador")
+
+## Historial detallado de modificaciones:
 
 ### 15/12/2024
 
@@ -33,8 +75,8 @@
 
 - Resuelto los problemas con las sub_categories. Habían algunos detalles:
 
-  - había que añadir "parent" en el serializador.
-  - habia que cambiar la vista para filtrar los resultados con "parent: null" para no duplicar las subcategorias en las categorias.
+  - Había que añadir "parent" en el serializador.
+  - Habia que cambiar la vista para filtrar los resultados con "parent: null" para no duplicar las subcategorias en las categorias.
   - Obviamente había que añadir "parent" en el JSON para añadir una nueva subcategoria.
 
 - Mejora del código: si la consulta (get) retornaba una lista vacía, retornaba un error 500. Sin embargo, que no haya datos no me parece un error (simplemente no hay datos) y menos del tipo 500 (sería más bien un 404).
@@ -45,7 +87,8 @@
 
 - Borrado algunos comentarios.
 - Borrado imports desnecesarios en /apps/category/views.py
-- Creado una colección de Postman para poder probar los endpoints de categories.
+- Creada una colección de Postman para poder probar los endpoints de categories.
+- Pruebas finales y actualización de este mismo archivo (README.md).
 
 ## instrucciones de configuración (que ya estaban)
 
