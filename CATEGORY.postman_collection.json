@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "47efe4e8-7d3b-498a-8b52-656eca78fe29",
-		"name": "PRUEBA-TECNICA-DRF",
+		"_postman_id": "aa4926fb-d517-4a64-8124-f35c6ce941c2",
+		"name": "CATEGORY",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "24890991"
 	},
@@ -49,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"FIAT\",\n    \"description\":\"Una marca italiana de coches\",\n    \"parent\":\"\"\n}",
+					"raw": "{\n    \"name\": \"Vestidos\",\n    \"description\":\"Un artículo de vestidos\",\n    \"parent\":\"\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
